@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cifra de Cesar - Carlos</title>
+        <meta charset="UTF-8">
+        <style>
+            
+            .centro{
+                background: cornflowerblue;
+                margin-left: 450px;
+                width: 60vw;
+                height: 60vh;
+                 background: rgba(29, 54, 94, 0.8);
+                 display: flex;
+                 flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50px;
+
+            }
+            button {
+                width: 50px;
+                height: 50px;
+                border-radius: 25px;
+                background-color: mintcream;
+                border-color: mintcream;
+            }
+            #big {
+                width: 100px;
+            }
+            .loca{
+                border-radius: 50px;
+            }
+            body{
+                background-image: url(cod.jpg) 
+            }
+            input{
+                font-size: 30px;
+            }
+            .label{
+                color: wheat;
+                font-size: 40px;
+            }
+            .titulo{
+                background: black;
+                color: aliceblue;
+                font-size: 60px;
+                margin-left: 60px;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+            <h1 class="titulo">CRIPTOGRAFAR</h1>
+    <div class="centro" >
+
+        <span class="label" id="label">Chave: </span>
+        <button onclick="prev()">-</button>
+        <span class="label" id="key">1</span>
+        <button onclick="next()">+</button><br/><br/>
+        <input class="loca" type="text" id="input" placeholder=" digite sua frase..."/>
+        <button onclick="calculate()" id="big">CALCULAR</button>
+        <span class="label" id="output"></span>
+    </div>
+        <script>
+            var values = new Array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z");
+            var key = +document.getElementById("key").innerHTML;
+
+            function prev() {
+                if(key > 1) {
+                    key--;
+                    document.getElementById("key").innerHTML = key;
+                }
+            }
+
+            function next() {
+                if(key < 25) {
+                    key++;
+                    document.getElementById("key").innerHTML = key;
+                }
+            }
+
+            function calculate() {
+                var input = document.getElementById("input").value.toUpperCase();
+                var result = "";
+
+                for(var i = 0; i<input.length; i++){ //Passa por cada caracter do input
+
+                    var posicaoDaLetraNoAlfabeto = input.charCodeAt(i)-64; //Identifica qual letra é do alfabeto
+                    var letraComDeslocamento = (posicaoDaLetraNoAlfabeto + key) % 26; //Faz o deslocamento de César e mantém dentro do alfabeto (26 letras)
+                    letraComDeslocamento = letraComDeslocamento == 0 ? 26 : letraComDeslocamento; //MOD retornar 0 caso o resultado seja 26, tem que tratar isso
+                    result += values[letraComDeslocamento-1]; //Faz -1 porque a letra 1 (A) está no índice 0 do teu array.
+                }
+
+                document.getElementById("output").innerHTML = result;
+            }
+        </script>
+    </body>
+</html>
